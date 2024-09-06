@@ -1,7 +1,7 @@
 #include <iostream>
 
-ushort scan_set() {
-    ushort t = 0;
+unsigned short scan_set() {
+    unsigned short t = 0;
     char x;
     do {
         x = getc(stdin);
@@ -13,19 +13,19 @@ ushort scan_set() {
 }
 
 int main() {
-    ushort a = 0, b = 0, c = 0, d = 0, e;
+    unsigned short a = 0, b = 0, c = 0, d = 0, e;
 
-    printf("A: ");
+    printf("A:");
     a = scan_set();
-    printf("\nB: ");
+    printf("B:");
     b = scan_set();
-    printf("\nC: ");
+    printf("C:");
     c = scan_set();
-    printf("\nD: ");
+    printf("D:");
     d = scan_set();
 
     e = a & b | c | d;
-    printf("\nE: ");
+    printf("E:");
     for (int i = 0; i < 10; ++i) {
         if ((e >> i) & 1) printf("%i ", i);
     }
