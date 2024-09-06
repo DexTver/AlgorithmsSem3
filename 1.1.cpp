@@ -14,7 +14,6 @@ ushort scan_set() {
 
 int main() {
     ushort a = 0, b = 0, c = 0, d = 0, e;
-    char x;
 
     printf("A: ");
     a = scan_set();
