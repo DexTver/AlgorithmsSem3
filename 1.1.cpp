@@ -4,7 +4,7 @@ unsigned short scan_set() {
     unsigned short t = 0;
     char x;
     do {
-        x = getc(stdin);
+        x = (char) getc(stdin);
         if ('0' <= x && x <= '9') {
             t |= 1 << (int) (x - '0');
         }
