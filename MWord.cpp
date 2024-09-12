@@ -15,17 +15,17 @@ unsigned short scan_set() {
 int main() {
     unsigned short a = 0, b = 0, c = 0, d = 0, e;
 
-    printf("A:");
+    printf("A: ");
     a = scan_set();
-    printf("B:");
+    printf("B: ");
     b = scan_set();
-    printf("C:");
+    printf("C: ");
     c = scan_set();
-    printf("D:");
+    printf("D: ");
     d = scan_set();
 
     e = a & b | c | d;
-    printf("E:");
+    printf("E: ");
     for (int i = 0; i < 10; ++i) {
         if ((e >> i) & 1) printf("%i ", i);
     }
