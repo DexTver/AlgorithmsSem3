@@ -23,7 +23,6 @@ void generator(char a[], int &len) {
 }
 
 int main() {
-    std::ofstream f("test.txt");
     for (int i = 0; i < 4; ++i) {
         char a[10];
         int len = 0;
@@ -31,10 +30,10 @@ int main() {
 
         for (int j = 0; j < len; ++j) {
             if (a[j] != '\0') {
-                f << a[j] << " ";
+                std::cout << a[j] << " ";
             }
         }
-        f << "\n";
+        std::cout << "\n";
     }
     return 0;
 }

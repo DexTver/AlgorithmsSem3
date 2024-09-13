@@ -39,6 +39,7 @@ int main() {
     ListNode *new_node = nullptr;
     bool fl;
 
+    // scan
     printf("A: ");
     scan_set(&a);
     printf("B: ");
