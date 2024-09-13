@@ -15,6 +15,7 @@ unsigned short scan_set() {
 int main() {
     unsigned short a = 0, b = 0, c = 0, d = 0, e;
 
+    // scan
     printf("A: ");
     a = scan_set();
     printf("B: ");
@@ -25,6 +26,8 @@ int main() {
     d = scan_set();
 
     e = a & b | c | d;
+
+    //print
     printf("E: ");
     for (int i = 0; i < 10; ++i) {
         if ((e >> i) & 1) printf("%i ", i);

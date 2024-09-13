@@ -16,6 +16,7 @@ int main() {
     int cnt = 0;
     bool fl;
 
+    // scan
     printf("A: ");
     scan_set(a);
     printf("B: ");
@@ -63,17 +64,19 @@ int main() {
         }
     }
 
-        for (int i = 0; i < 11; ++i) {
-            for (int j = i; j < 11; ++j) {
-                if (e[i] > e[j]) {
-                    std::swap(e[i], e[j]);
-                }
+    // sort
+    for (int i = 0; i < 11; ++i) {
+        for (int j = i; j < 11; ++j) {
+            if (e[i] > e[j]) {
+                std::swap(e[i], e[j]);
             }
         }
+    }
 
+    // print
     printf("E: ");
     for (auto x: e) {
-        if (x != '\000') printf("%i ", x - '0');
+        if (x != '\000') printf("%c ", x);
     }
 
     return 0;

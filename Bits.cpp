@@ -13,6 +13,7 @@ void scan_set(bool t[10]) {
 int main() {
     bool a[10]{}, b[10]{}, c[10]{}, d[10]{}, e[10]{};
 
+    // scan
     printf("A: ");
     scan_set(a);
     printf("B: ");
@@ -37,11 +38,13 @@ int main() {
         e[i] = e[i] || d[i];
     }
 
+    // print
     printf("E: ");
     for (int i = 0; i < 10; ++i) {
         if (e[i]) {
             printf("%i ", i);
         }
     }
+
     return 0;
 }
