@@ -3,7 +3,6 @@
 struct ListNode {
     char data = '\000';
     ListNode *next = nullptr;
-    ListNode *prev = nullptr;
 };
 
 struct List {
@@ -16,7 +15,6 @@ struct List {
             this->first = x;
             this->last = x;
         }
-        x->prev = this->last;
         this->last->next = x;
         this->last = x;
         ++len;
