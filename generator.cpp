@@ -1,35 +1,40 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 #include <random>
 #include <fstream>
 
-
-void generator(std::vector<char> &a) {
+void generator(char a[], int &len) {
     std::mt19937 rnd(std::random_device{}());
-    int len = std::uniform_int_distribution<int>(1, 10)(rnd);
+    len = std::uniform_int_distribution<int>(1, 10)(rnd);
 
-    std::vector<char> digits;
+    char digits[10];
     for (char i = '0'; i <= '9'; ++i) {
-        digits.push_back(i);
+        digits[i - '0'] = i;
     }
 
-    std::shuffle(digits.begin(), digits.end(), rnd);
-    a.assign(digits.begin(), digits.begin() + len);
+    for (int i = 0; i < len; ++i) {
+        if (std::uniform_int_distribution<int>(0, 1)(rnd)) {
+            a[i] = digits[i];
+        } else {
+            a[i] = '\0';
+        }
+    }
+    std::shuffle(a, a + len, rnd);
 }
 
 int main() {
     std::ofstream f("test.txt");
-
     for (int i = 0; i < 4; ++i) {
-        std::vector<char> a;
-        generator(a);
+        char a[10];
+        int len = 0;
+        generator(a, len);
 
-        for (char j : a) {
-            f << j << " ";
+        for (int j = 0; j < len; ++j) {
+            if (a[j] != '\0') {
+                f << a[j] << " ";
+            }
         }
         f << "\n";
     }
-
     return 0;
 }
