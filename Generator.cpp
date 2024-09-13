@@ -1,7 +1,6 @@
 #include <iostream>
 #include <algorithm>
 #include <random>
-#include <fstream>
 
 void generator(char a[], int &len) {
     std::mt19937 rnd(std::random_device{}());

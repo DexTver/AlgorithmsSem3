@@ -14,9 +14,10 @@ struct List {
         if (this->len == 0) {
             this->first = x;
             this->last = x;
+        } else {
+            this->last->next = x;
+            this->last = x;
         }
-        this->last->next = x;
-        this->last = x;
         ++len;
     }
 };
