@@ -5,7 +5,7 @@
 
 void out_print(const char name[]) {
     std::string line;
-    std::ifstream file("out_array.txt");
+    std::ifstream file(name);
     getline(file, line);
     file.close();
     std::cout << line;
@@ -24,6 +24,13 @@ int main() {
     // running
     system("./Generator > input.txt");
 
+    std::cout << "Test:\n";
+    std::ifstream file("input.txt");
+    std::string line;
+    while (std::getline(file, line)) {
+        std::cout << line << std::endl;
+    }
+    file.close();
 
     auto start = high_resolution_clock::now();
     system("./Array < input.txt > out_array.txt");

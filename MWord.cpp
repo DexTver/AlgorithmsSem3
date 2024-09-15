@@ -6,7 +6,8 @@
     bool loc = false;
 #endif
 
-void scan_set(unsigned short t) {
+unsigned short scan_set() {
+    unsigned short t = 0;
     char x;
     do {
         x = (char) getc(stdin);
@@ -14,6 +15,7 @@ void scan_set(unsigned short t) {
             t |= 1 << (int) (x - '0');
         }
     } while (x != '\n');
+    return t;
 }
 
 int main() {
@@ -21,13 +23,13 @@ int main() {
 
     // scan
     if (loc) printf("A: ");
-    scan_set(a);
+    a = scan_set();
     if (loc) printf("B: ");
-    scan_set(b);
+    b = scan_set();
     if (loc) printf("C: ");
-    scan_set(c);
+    c = scan_set();
     if (loc) printf("D: ");
-    scan_set(d);
+    d = scan_set();
 
     e = a & b | c | d;
 
