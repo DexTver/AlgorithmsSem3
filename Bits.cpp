@@ -1,5 +1,11 @@
 #include <iostream>
 
+#ifdef LOCAL
+bool loc = true;
+#else
+bool loc = false;
+#endif
+
 void scan_set(bool t[10]) {
     char x;
     do {
@@ -14,13 +20,13 @@ int main() {
     bool a[10]{}, b[10]{}, c[10]{}, d[10]{}, e[10]{};
 
     // scan
-    printf("A: ");
+    if (loc) printf("A: ");
     scan_set(a);
-    printf("B: ");
+    if (loc) printf("B: ");
     scan_set(b);
-    printf("C: ");
+    if (loc) printf("C: ");
     scan_set(c);
-    printf("D: ");
+    if (loc) printf("D: ");
     scan_set(d);
 
     // e = a & b
@@ -39,11 +45,9 @@ int main() {
     }
 
     // print
-    printf("E: ");
+    if (loc) printf("E: ");
     for (int i = 0; i < 10; ++i) {
-        if (e[i]) {
-            printf("%i ", i);
-        }
+        if (e[i]) printf("%i ", i);
     }
 
     return 0;

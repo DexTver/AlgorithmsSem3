@@ -1,5 +1,11 @@
 #include <iostream>
 
+#ifdef LOCAL
+    bool loc = true;
+#else
+    bool loc = false;
+#endif
+
 void scan_set(char t[11]) {
     char x;
     int cnt = 0;
@@ -17,13 +23,13 @@ int main() {
     bool fl;
 
     // scan
-    printf("A: ");
+    if (loc) printf("A: ");
     scan_set(a);
-    printf("B: ");
+    if (loc) printf("B: ");
     scan_set(b);
-    printf("C: ");
+    if (loc) printf("C: ");
     scan_set(c);
-    printf("D: ");
+    if (loc) printf("D: ");
     scan_set(d);
 
     // e = a & b
@@ -74,7 +80,7 @@ int main() {
     }
 
     // print
-    printf("E: ");
+    if (loc) printf("E: ");
     for (auto x: e) {
         if (x != '\000') printf("%c ", x);
     }

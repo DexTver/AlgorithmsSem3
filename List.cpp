@@ -1,5 +1,11 @@
 #include <iostream>
 
+#ifdef LOCAL
+    bool loc = true;
+#else
+    bool loc = false;
+#endif
+
 struct ListNode {
     char data = '\000';
     ListNode *next = nullptr;
@@ -41,13 +47,13 @@ int main() {
     bool fl;
 
     // scan
-    printf("A: ");
+    if (loc) printf("A: ");
     scan_set(&a);
-    printf("B: ");
+    if (loc) printf("B: ");
     scan_set(&b);
-    printf("C: ");
+    if (loc) printf("C: ");
     scan_set(&c);
-    printf("D: ");
+    if (loc) printf("D: ");
     scan_set(&d);
 
     // e = a & b
@@ -103,7 +109,7 @@ int main() {
     }
 
     // print
-    printf("E: ");
+    if (loc) printf("E: ");
     for (auto x = e.first; x != nullptr; x = x->next) {
         printf("%c ", x->data);
     }
