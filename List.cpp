@@ -6,113 +6,151 @@
     bool loc = false;
 #endif
 
-struct ListNode {
-    char data = '\000';
-    ListNode *next = nullptr;
+// Define the Node structure
+struct Node {
+    char data;
+    Node* next;
 };
 
-struct List {
-    ListNode *first{};
-    ListNode *last{};
-    int len = 0;
+// Function to create a new node
+Node* createNode(char data) {
+    Node* newNode = new Node();
+    newNode->data = data;
+    newNode->next = nullptr;
+    return newNode;
+}
 
-    void add(ListNode *x) {
-        if (this->len == 0) {
-            this->first = x;
-            this->last = x;
-        } else {
-            this->last->next = x;
-            this->last = x;
+// Function to insert a node at the end of the list
+void insertNode(Node** head, char data) {
+    Node* newNode = createNode(data);
+    if (*head == nullptr) {
+        *head = newNode;
+    } else {
+        Node* current = *head;
+        while (current->next != nullptr) {
+            current = current->next;
         }
-        ++len;
+        current->next = newNode;
     }
-};
+}
 
-void scan_set(List *t) {
+// Function to scan a set of characters and store them in a linked list
+void scanSet(Node** head) {
     char x;
-    ListNode *new_node = nullptr;
     do {
         x = (char) getc(stdin);
         if ('0' <= x && x <= '9') {
-            new_node = (ListNode *) malloc(sizeof(ListNode));
-            new_node->data = x;
-            t->add(new_node);
+            insertNode(head, x);
         }
     } while (x != '\n');
 }
 
+// Function to perform the bitwise AND operation on two linked lists
+void bitwiseAnd(Node* headA, Node* headB, Node** result) {
+    Node* currentA = headA;
+    while (currentA != nullptr) {
+        Node* currentB = headB;
+        while (currentB != nullptr) {
+            if (currentA->data == currentB->data) {
+                insertNode(result, currentA->data);
+                break;
+            }
+            currentB = currentB->next;
+        }
+        currentA = currentA->next;
+    }
+}
+
+// Function to perform the bitwise OR operation on two linked lists
+void bitwiseOr(Node* headA, Node* headB, Node** result) {
+    Node* currentA = headA;
+    while (currentA != nullptr) {
+        bool found = false;
+        Node* currentResult = *result;
+        while (currentResult != nullptr) {
+            if (currentA->data == currentResult->data) {
+                found = true;
+                break;
+            }
+            currentResult = currentResult->next;
+        }
+        if (!found) {
+            insertNode(result, currentA->data);
+        }
+        currentA = currentA->next;
+    }
+    Node* currentB = headB;
+    while (currentB != nullptr) {
+        bool found = false;
+        Node* currentResult = *result;
+        while (currentResult != nullptr) {
+            if (currentB->data == currentResult->data) {
+                found = true;
+                break;
+            }
+            currentResult = currentResult->next;
+        }
+        if (!found) {
+            insertNode(result, currentB->data);
+        }
+        currentB = currentB->next;
+    }
+}
+
+// Function to sort the linked list
+void sortList(Node** head) {
+    Node* current = *head;
+    while (current != nullptr) {
+        Node* nextNode = current->next;
+        while (nextNode != nullptr) {
+            if (current->data > nextNode->data) {
+                char temp = current->data;
+                current->data = nextNode->data;
+                nextNode->data = temp;
+            }
+            nextNode = nextNode->next;
+        }
+        current = current->next;
+    }
+}
+
+// Function to print the linked list
+void printList(Node* head) {
+    Node* current = head;
+    while (current != nullptr) {
+        printf("%c ", current->data);
+        current = current->next;
+    }
+}
+
 int main() {
-    List a, b, c, d, e;
-    ListNode *new_node = nullptr;
-    bool fl;
+    Node* headA = nullptr;
+    Node* headB = nullptr;
+    Node* headC = nullptr;
+    Node* headD = nullptr;
+    Node* headE = nullptr;
 
-    // scan
+    // Scan sets
     if (loc) printf("A: ");
-    scan_set(&a);
+    scanSet(&headA);
     if (loc) printf("B: ");
-    scan_set(&b);
+    scanSet(&headB);
     if (loc) printf("C: ");
-    scan_set(&c);
+    scanSet(&headC);
     if (loc) printf("D: ");
-    scan_set(&d);
+    scanSet(&headD);
 
-    // e = a & b
-    for (auto x = a.first; x != nullptr; x = x->next) {
-        for (auto y = b.first; y != nullptr; y = y->next) {
-            if (x->data == y->data) {
-                new_node = (ListNode *) malloc(sizeof(ListNode));
-                new_node->data = x->data;
-                e.add(new_node);
-            }
-        }
-    }
+    // Perform bitwise AND and OR operations
+    bitwiseAnd(headA, headB, &headE);
+    bitwiseOr(headC, headE, &headE);
+    bitwiseOr(headD, headE, &headE);
 
-    // e |= c
-    for (auto x = c.first; x != nullptr; x = x->next) {
-        fl = false;
-        for (auto y = e.first; y != nullptr; y = y->next) {
-            if (x->data == y->data) {
-                fl = true;
-                break;
-            }
-        }
-        if (!fl) {
-            new_node = (ListNode *) malloc(sizeof(ListNode));
-            new_node->data = x->data;
-            e.add(new_node);
-        }
-    }
+    // Sort the result list
+    sortList(&headE);
 
-    // e |= d
-    for (auto x = d.first; x != nullptr; x = x->next) {
-        fl = false;
-        for (auto y = e.first; y != nullptr; y = y->next) {
-            if (x->data == y->data) {
-                fl = true;
-                break;
-            }
-        }
-        if (!fl) {
-            new_node = (ListNode *) malloc(sizeof(ListNode));
-            new_node->data = x->data;
-            e.add(new_node);
-        }
-    }
-
-    // sort
-    for (auto x = e.first; x != nullptr; x = x->next) {
-        for (auto y = x->next; y != nullptr; y = y->next) {
-            if (x->data > y->data) {
-                std::swap(x->data, y->data);
-            }
-        }
-    }
-
-    // print
+    // Print the result list
     if (loc) printf("E: ");
-    for (auto x = e.first; x != nullptr; x = x->next) {
-        printf("%c ", x->data);
-    }
+    printList(headE);
 
     return 0;
 }

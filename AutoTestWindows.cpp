@@ -39,12 +39,12 @@ int main() {
     out_print("out_array.txt");
     std::cout << "in " << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
 
-//    start = high_resolution_clock::now();
-//    system("List < input.txt > out_list.txt");
-//    stop = high_resolution_clock::now();
-//    std::cout << "List result:  ";
-//    out_print("out_list.txt");
-//    std::cout << "in " << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+    start = high_resolution_clock::now();
+    system("List < input.txt > out_list.txt");
+    stop = high_resolution_clock::now();
+    std::cout << "List result:  ";
+    out_print("out_list.txt");
+    std::cout << "in " << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
 
     start = high_resolution_clock::now();
     system("Bits < input.txt > out_bits.txt");
