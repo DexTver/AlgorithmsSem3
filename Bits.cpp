@@ -1,9 +1,9 @@
 #include <iostream>
 
 #ifdef LOCAL
-bool loc = true;
+    bool loc = true;
 #else
-bool loc = false;
+    bool loc = false;
 #endif
 
 void scan_set(bool t[10]) {

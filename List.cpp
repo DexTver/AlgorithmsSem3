@@ -6,36 +6,39 @@
     bool loc = false;
 #endif
 
-// Define the Node structure
 struct Node {
     char data;
-    Node* next;
+    Node *next;
 };
 
-// Function to create a new node
-Node* createNode(char data) {
-    Node* newNode = new Node();
+Node *createNode(char data) {
+    Node *newNode = new Node();
     newNode->data = data;
     newNode->next = nullptr;
     return newNode;
 }
 
-// Function to insert a node at the end of the list
-void insertNode(Node** head, char data) {
-    Node* newNode = createNode(data);
+void insertNode(Node **head, char data) {
+    Node *current = *head;
+    while (current != nullptr) {
+        if (current->data == data) {
+            return; // Node already exists
+        }
+        current = current->next;
+    }
+    Node *newNode = createNode(data);
     if (*head == nullptr) {
         *head = newNode;
     } else {
-        Node* current = *head;
-        while (current->next != nullptr) {
-            current = current->next;
+        Node *lastNode = *head;
+        while (lastNode->next != nullptr) {
+            lastNode = lastNode->next;
         }
-        current->next = newNode;
+        lastNode->next = newNode;
     }
 }
 
-// Function to scan a set of characters and store them in a linked list
-void scanSet(Node** head) {
+void scanSet(Node **head) {
     char x;
     do {
         x = (char) getc(stdin);
@@ -45,44 +48,35 @@ void scanSet(Node** head) {
     } while (x != '\n');
 }
 
-// Function to perform the bitwise AND operation on two linked lists
-void bitwiseAnd(Node* headA, Node* headB, Node** result) {
-    Node* currentA = headA;
+void bitwiseAnd(Node *headA, Node *headB, Node **result) {
+    Node *currentA = headA;
     while (currentA != nullptr) {
-        Node* currentB = headB;
+        Node *currentB = headB;
+        bool found = false;
         while (currentB != nullptr) {
             if (currentA->data == currentB->data) {
-                insertNode(result, currentA->data);
+                found = true;
                 break;
             }
             currentB = currentB->next;
+        }
+        if (found) {
+            insertNode(result, currentA->data);
         }
         currentA = currentA->next;
     }
 }
 
-// Function to perform the bitwise OR operation on two linked lists
-void bitwiseOr(Node* headA, Node* headB, Node** result) {
-    Node* currentA = headA;
+void bitwiseOr(Node *headA, Node *headB, Node **result) {
+    Node *currentA = headA;
     while (currentA != nullptr) {
-        bool found = false;
-        Node* currentResult = *result;
-        while (currentResult != nullptr) {
-            if (currentA->data == currentResult->data) {
-                found = true;
-                break;
-            }
-            currentResult = currentResult->next;
-        }
-        if (!found) {
-            insertNode(result, currentA->data);
-        }
+        insertNode(result, currentA->data);
         currentA = currentA->next;
     }
-    Node* currentB = headB;
+    Node *currentB = headB;
     while (currentB != nullptr) {
         bool found = false;
-        Node* currentResult = *result;
+        Node *currentResult = *result;
         while (currentResult != nullptr) {
             if (currentB->data == currentResult->data) {
                 found = true;
@@ -97,11 +91,10 @@ void bitwiseOr(Node* headA, Node* headB, Node** result) {
     }
 }
 
-// Function to sort the linked list
-void sortList(Node** head) {
-    Node* current = *head;
+void sortList(Node **head) {
+    Node *current = *head;
     while (current != nullptr) {
-        Node* nextNode = current->next;
+        Node *nextNode = current->next;
         while (nextNode != nullptr) {
             if (current->data > nextNode->data) {
                 char temp = current->data;
@@ -114,23 +107,14 @@ void sortList(Node** head) {
     }
 }
 
-// Function to print the linked list
-void printList(Node* head) {
-    Node* current = head;
-    while (current != nullptr) {
-        printf("%c ", current->data);
-        current = current->next;
-    }
-}
-
 int main() {
-    Node* headA = nullptr;
-    Node* headB = nullptr;
-    Node* headC = nullptr;
-    Node* headD = nullptr;
-    Node* headE = nullptr;
+    Node *headA = nullptr;
+    Node *headB = nullptr;
+    Node *headC = nullptr;
+    Node *headD = nullptr;
+    Node *headE = nullptr;
 
-    // Scan sets
+    // scan
     if (loc) printf("A: ");
     scanSet(&headA);
     if (loc) printf("B: ");
@@ -140,17 +124,21 @@ int main() {
     if (loc) printf("D: ");
     scanSet(&headD);
 
-    // Perform bitwise AND and OR operations
+    // perform bitwise АND and OR operations
     bitwiseAnd(headA, headB, &headE);
     bitwiseOr(headC, headE, &headE);
     bitwiseOr(headD, headE, &headE);
 
-    // Sort the result list
+    // sort
     sortList(&headE);
 
-    // Print the result list
+    // print
     if (loc) printf("E: ");
-    printList(headE);
+    Node *current = headE;
+    while (current != nullptr) {
+        printf("%c ", current->data);
+        current = current->next;
+    }
 
     return 0;
 }

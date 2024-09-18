@@ -12,15 +12,23 @@ void scan_set(char t[11]) {
     do {
         x = (char) getc(stdin);
         if ('0' <= x && x <= '9') {
-            t[cnt++] = x;
+            bool found = false;
+            for (int i = 0; i < cnt; ++i) {
+                if (t[i] == x) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                t[cnt++] = x;
+            }
         }
     } while (x != '\n');
 }
 
 int main() {
     char a[11]{}, b[11]{}, c[11]{}, d[11]{}, e[11]{};
-    int cnt = 0;
-    bool fl;
+    int cnt_e = 0;
 
     // scan
     if (loc) printf("A: ");
@@ -33,46 +41,58 @@ int main() {
     scan_set(d);
 
     // e = a & b
-    for (auto x: a) {
-        for (auto y: b) {
-            if (x == y && x != '\000') {
-                e[cnt++] = x;
-                break;
+    for (char i : a) {
+        for (char j : b) {
+            if (i == j && i != '\000') {
+                bool found = false;
+                for (int k = 0; k < cnt_e; ++k) {
+                    if (e[k] == i) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    e[cnt_e++] = i;
+                }
             }
         }
     }
 
     // e |= c
-    for (auto x: c) {
-        fl = false;
-        for (auto y: e) {
-            if (x == y) {
-                fl = true;
-                break;
+    for (char i : c) {
+        if (i != '\000') {
+            bool found = false;
+            for (int j = 0; j < cnt_e; ++j) {
+                if (e[j] == i) {
+                    found = true;
+                    break;
+                }
             }
-        }
-        if (!fl) {
-            e[cnt++] = x;
+            if (!found) {
+                e[cnt_e++] = i;
+            }
         }
     }
 
     // e |= d
-    for (auto x: d) {
-        fl = false;
-        for (auto y: e) {
-            if (x == y) {
-                fl = true;
-                break;
+    for (char i : d) {
+        if (i != '\000') {
+            bool found = false;
+            for (int j = 0; j < cnt_e; ++j) {
+                if (e[j] == i) {
+                    found = true;
+                    break;
+                }
             }
-        }
-        if (!fl) {
-            e[cnt++] = x;
+            if (!found) {
+                e[cnt_e++] = i;
+            }
         }
     }
 
     // sort
-    for (int i = 0; i < 11; ++i) {
-        for (int j = i; j < 11; ++j) {
+    for (int i = 0; i < cnt_e; ++i) {
+        for (int j = i; j < cnt_e; ++j) {
             if (e[i] > e[j]) {
                 std::swap(e[i], e[j]);
             }
@@ -81,8 +101,8 @@ int main() {
 
     // print
     if (loc) printf("E: ");
-    for (auto x: e) {
-        if (x != '\000') printf("%c ", x);
+    for (int i = 0; i < cnt_e; ++i) {
+        printf("%c ", e[i]);
     }
 
     return 0;
