@@ -2,14 +2,17 @@
 #include <algorithm>
 #include <random>
 
+#ifdef LOCAL
+    bool loc = true;
+#else
+    bool loc = false;
+#endif
+
 void generator(char a[], int &len) {
     std::mt19937 rnd(std::random_device{}());
     len = std::uniform_int_distribution(1, 10)(rnd);
 
-    char digits[10];
-    for (char i = '0'; i <= '9'; ++i) {
-        digits[i - '0'] = i;
-    }
+    char digits[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
     for (int i = 0; i < len; ++i) {
         if (std::uniform_int_distribution<int>(0, 1)(rnd)) {
@@ -37,13 +40,23 @@ void generatorWithFixedLen(char a[], int len) {
     }
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     int len = 0;
-    std::cout << "Enter length of generated sets (from 0 to 10):\n";
-    std::cin >> len;
+    if (loc) {
+        std::cout << "Enter length of generated sets (from 0 to 10):\n";
+        std::cin >> len;
+    } else {
+        if (argc > 1) {
+            len = std::atoi(argv[1]);
+        }
+    }
     for (int i = 0; i < 4; ++i) {
         char a[10];
-        generatorWithFixedLen(a, len);
+        if (!loc && argc <= 1) {
+            generator(a, len);
+        } else {
+            generatorWithFixedLen(a, len);
+        }
 
         for (int j = 0; j < len; ++j) {
             if (a[j] != '\0') {
