@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 
 #ifdef LOCAL
     bool loc = true;
@@ -108,9 +109,11 @@ int main() {
     if (loc) printf("D: ");
     scanSet(&headD);
 
+    auto start = std::chrono::high_resolution_clock::now();
     bitwiseAnd(headA, headB, &headE);
     bitwiseOr(headC, headE, &headE);
     bitwiseOr(headD, headE, &headE);
+    auto stop = std::chrono::high_resolution_clock::now();
 
     // print
     if (loc) printf("E: ");
@@ -119,6 +122,7 @@ int main() {
         printf("%c ", current->data);
         current = current->next;
     }
+    printf("in %lli nanoseconds", std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
     return 0;
 }

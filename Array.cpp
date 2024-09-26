@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 
 #ifdef LOCAL
     bool loc = true;
@@ -40,9 +41,10 @@ int main() {
     if (loc) printf("D: ");
     scan_set(d);
 
+    auto start = std::chrono::high_resolution_clock::now();
     // e = a & b
-    for (char i : a) {
-        for (char j : b) {
+    for (char i: a) {
+        for (char j: b) {
             if (i == j && i != '\000') {
                 bool found = false;
                 for (int k = 0; k < cnt_e; ++k) {
@@ -59,7 +61,7 @@ int main() {
     }
 
     // e |= c
-    for (char i : c) {
+    for (char i: c) {
         if (i != '\000') {
             bool found = false;
             for (int j = 0; j < cnt_e; ++j) {
@@ -75,7 +77,7 @@ int main() {
     }
 
     // e |= d
-    for (char i : d) {
+    for (char i: d) {
         if (i != '\000') {
             bool found = false;
             for (int j = 0; j < cnt_e; ++j) {
@@ -89,12 +91,14 @@ int main() {
             }
         }
     }
+    auto stop = std::chrono::high_resolution_clock::now();
 
     // print
     if (loc) printf("E: ");
     for (int i = 0; i < cnt_e; ++i) {
         printf("%c ", e[i]);
     }
+    printf("in %lli nanoseconds", std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
     return 0;
 }
