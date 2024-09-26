@@ -91,22 +91,6 @@ void bitwiseOr(Node *headA, Node *headB, Node **result) {
     }
 }
 
-void sortList(Node **head) {
-    Node *current = *head;
-    while (current != nullptr) {
-        Node *nextNode = current->next;
-        while (nextNode != nullptr) {
-            if (current->data > nextNode->data) {
-                char temp = current->data;
-                current->data = nextNode->data;
-                nextNode->data = temp;
-            }
-            nextNode = nextNode->next;
-        }
-        current = current->next;
-    }
-}
-
 int main() {
     Node *headA = nullptr;
     Node *headB = nullptr;
@@ -124,13 +108,9 @@ int main() {
     if (loc) printf("D: ");
     scanSet(&headD);
 
-    // perform bitwise АND and OR operations
     bitwiseAnd(headA, headB, &headE);
     bitwiseOr(headC, headE, &headE);
     bitwiseOr(headD, headE, &headE);
-
-    // sort
-    sortList(&headE);
 
     // print
     if (loc) printf("E: ");

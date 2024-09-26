@@ -90,15 +90,6 @@ int main() {
         }
     }
 
-    // sort
-    for (int i = 0; i < cnt_e; ++i) {
-        for (int j = i; j < cnt_e; ++j) {
-            if (e[i] > e[j]) {
-                std::swap(e[i], e[j]);
-            }
-        }
-    }
-
     // print
     if (loc) printf("E: ");
     for (int i = 0; i < cnt_e; ++i) {
