@@ -42,20 +42,18 @@ int main() {
     scan_set(d);
 
     auto start = std::chrono::high_resolution_clock::now();
+    // removing repetitions
+    for (int i = 0; i < 11; ++i) {
+        for (int j = i + 1; j < 11; ++j) {
+            if (a[i] == a[j]) a[j] = '\000';
+        }
+    }
+
     // e = a & b
     for (char i: a) {
         for (char j: b) {
             if (i == j && i != '\000') {
-                bool found = false;
-                for (int k = 0; k < cnt_e; ++k) {
-                    if (e[k] == i) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    e[cnt_e++] = i;
-                }
+                e[cnt_e++] = i;
             }
         }
     }

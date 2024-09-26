@@ -93,11 +93,7 @@ void bitwiseOr(Node *headA, Node *headB, Node **result) {
 }
 
 int main() {
-    Node *headA = nullptr;
-    Node *headB = nullptr;
-    Node *headC = nullptr;
-    Node *headD = nullptr;
-    Node *headE = nullptr;
+    Node *headA = nullptr, *headB = nullptr, *headC = nullptr, *headD = nullptr, *headE = nullptr;
 
     // scan
     if (loc) printf("A: ");
@@ -110,8 +106,11 @@ int main() {
     scanSet(&headD);
 
     auto start = std::chrono::high_resolution_clock::now();
+    // e = a & b
     bitwiseAnd(headA, headB, &headE);
+    // e = c | e
     bitwiseOr(headC, headE, &headE);
+    // e = d | e
     bitwiseOr(headD, headE, &headE);
     auto stop = std::chrono::high_resolution_clock::now();
 
