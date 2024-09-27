@@ -33,7 +33,7 @@ int main() {
         if (i < 11) system(std::format("Generator {} > input.txt", i).c_str());
         else system("Generator > input.txt");
 
-        std::cout << "\n\nTest " << i << ":\n";
+        std::cout << "Test " << i << ":\n";
         std::ifstream file("input.txt");
         std::string line;
         while (std::getline(file, line)) {
@@ -56,6 +56,7 @@ int main() {
         system("MWord < input.txt > out_mword.txt");
         std::cout << "\nMWord result: ";
         out_print("out_mword.txt");
+        std::cout << "\n\n";
     }
 
     return 0;
