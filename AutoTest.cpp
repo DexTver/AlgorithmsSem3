@@ -1,7 +1,3 @@
-//#include <cstdlib>
-//#include <chrono>
-//#include <iostream>
-//#include <fstream>
 #include <bits/stdc++.h>
 
 void out_print(const char name[]) {
@@ -28,20 +24,12 @@ int main() {
     system("g++ Bits.cpp -o Bits");
     system("g++ MWord.cpp -o MWord");
 #endif
-    freopen("logs.txt", "w", stdout);
+    freopen("../logs.txt", "w", stdout);
     // running
     for (int tt = 0; tt < 100; ++tt) {
         for (int i = 1; i <= 10; ++i) {
             if (i < 11) system(std::format("Generator {} > input.txt", i).c_str());
             else system("Generator > input.txt");
-
-//            std::cout << "\n\nTest " << i << ":\n";
-//            std::ifstream file("input.txt");
-//            std::string line;
-//            while (std::getline(file, line)) {
-//                std::cout << line << "\n";
-//            }
-//            file.close();
 
             system("Array < input.txt > out_array.txt");
             std::cout << i << "\n";
