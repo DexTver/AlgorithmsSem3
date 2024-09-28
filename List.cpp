@@ -92,6 +92,16 @@ void bitwiseOr(Node *headA, Node *headB, Node **result) {
     }
 }
 
+void deleteList(Node **head) {
+    Node *current = *head;
+    while (current != nullptr) {
+        Node *next = current->next;
+        delete current;
+        current = next;
+    }
+    *head = nullptr;
+}
+
 int main() {
     Node *headA = nullptr, *headB = nullptr, *headC = nullptr, *headD = nullptr, *headE = nullptr;
 
@@ -122,6 +132,13 @@ int main() {
         current = current->next;
     }
     printf("in %lli nanoseconds", std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
+
+    // deleting lists
+    deleteList(&headA);
+    deleteList(&headB);
+    deleteList(&headC);
+    deleteList(&headD);
+    deleteList(&headE);
 
     return 0;
 }
