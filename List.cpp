@@ -7,6 +7,8 @@
     bool loc = false;
 #endif
 
+using namespace std;
+
 struct Node {
     char data;
     Node *next;
@@ -106,32 +108,32 @@ int main() {
     Node *headA = nullptr, *headB = nullptr, *headC = nullptr, *headD = nullptr, *headE = nullptr;
 
     // scan
-    if (loc) printf("A: ");
+    if (loc) cout << "A: ";
     scanSet(&headA);
-    if (loc) printf("B: ");
+    if (loc) cout << "B: ";
     scanSet(&headB);
-    if (loc) printf("C: ");
+    if (loc) cout << "C: ";
     scanSet(&headC);
-    if (loc) printf("D: ");
+    if (loc) cout << "D: ";
     scanSet(&headD);
 
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     // e = a & b
     bitwiseAnd(headA, headB, &headE);
     // e = c | e
     bitwiseOr(headC, headE, &headE);
     // e = d | e
     bitwiseOr(headD, headE, &headE);
-    auto stop = std::chrono::high_resolution_clock::now();
+    auto stop = chrono::high_resolution_clock::now();
 
     // print
-    if (loc) printf("E: ");
+    if (loc) cout << "E: ";
     Node *current = headE;
     while (current != nullptr) {
-        printf("%c ", current->data);
+        cout << current->data << " ";
         current = current->next;
     }
-    printf("in %lli nanoseconds", std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
+    cout << "in " << chrono::duration_cast<chrono::nanoseconds>(stop - start).count() << " nanoseconds";
 
     // deleting lists
     deleteList(&headA);

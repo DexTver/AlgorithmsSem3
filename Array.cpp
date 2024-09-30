@@ -34,6 +34,7 @@ void scan_set(char t[U + 1]) {
 int main() {
     char a[U + 1]{}, b[U + 1]{}, c[U + 1]{}, d[U + 1]{}, e[U + 1]{};
     int cnt_e = 0;
+    bool found;
 
     // scan
     if (loc) cout << "A: ";
@@ -46,51 +47,42 @@ int main() {
     scan_set(d);
 
     auto start = chrono::high_resolution_clock::now();
-    // removing repetitions
-    for (int i = 0; i <= U; ++i) {
-        for (int j = i + 1; j <= U; ++j) {
-            if (a[i] == a[j]) a[j] = '\000';
-        }
-    }
 
     // e = a & b
-    for (char i: a) {
-        for (char j: b) {
-            if (i == j && i != '\000') {
-                e[cnt_e++] = i;
+    for (int i = 0; i <= U && a[i] != '\000'; ++i) {
+        for (int j = 0; j <= U && b[i] != '\000'; ++j) {
+            if (a[i] == b[j]) {
+                e[cnt_e++] = a[i];
+                break;
             }
         }
     }
 
     // e |= c
-    for (char i: c) {
-        if (i != '\000') {
-            bool found = false;
-            for (int j = 0; j < cnt_e; ++j) {
-                if (e[j] == i) {
-                    found = true;
-                    break;
-                }
+    for (int i = 0; i <= U && c[i] != '\000'; ++i) {
+        found = false;
+        for (int j = 0; j < cnt_e; ++j) {
+            if (e[j] == c[i]) {
+                found = true;
+                break;
             }
-            if (!found) {
-                e[cnt_e++] = i;
-            }
+        }
+        if (!found) {
+            e[cnt_e++] = c[i];
         }
     }
 
     // e |= d
-    for (char i: d) {
-        if (i != '\000') {
-            bool found = false;
-            for (int j = 0; j < cnt_e; ++j) {
-                if (e[j] == i) {
-                    found = true;
-                    break;
-                }
+    for (int i = 0; i <= U && d[i] != '\000'; ++i) {
+        found = false;
+        for (int j = 0; j < cnt_e; ++j) {
+            if (e[j] == d[i]) {
+                found = true;
+                break;
             }
-            if (!found) {
-                e[cnt_e++] = i;
-            }
+        }
+        if (!found) {
+            e[cnt_e++] = d[i];
         }
     }
     auto stop = chrono::high_resolution_clock::now();
