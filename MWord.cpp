@@ -7,6 +7,8 @@
     bool loc = false;
 #endif
 
+using namespace std;
+
 unsigned short scan_set() {
     unsigned short t = 0;
     char x;
@@ -23,25 +25,25 @@ int main() {
     unsigned short a = 0, b = 0, c = 0, d = 0, e;
 
     // scan
-    if (loc) printf("A: ");
+    if (loc) cout << "A: ";
     a = scan_set();
-    if (loc) printf("B: ");
+    if (loc) cout << "B: ";
     b = scan_set();
-    if (loc) printf("C: ");
+    if (loc) cout << "C: ";
     c = scan_set();
-    if (loc) printf("D: ");
+    if (loc) cout << "D: ";
     d = scan_set();
 
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     e = a & b | c | d;
-    auto stop = std::chrono::high_resolution_clock::now();
+    auto stop = chrono::high_resolution_clock::now();
 
     //print
-    if (loc) printf("E: ");
+    if (loc) cout << "E: ";
     for (int i = 0; i < 10; ++i) {
-        if ((e >> i) & 1) printf("%i ", i);
+        if ((e >> i) & 1) cout << i << " ";
     }
-    printf("in %lli nanoseconds", std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
+    cout << "in " << chrono::duration_cast<chrono::nanoseconds>(stop - start).count() << " nanoseconds";
 
     return 0;
 }

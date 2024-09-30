@@ -3,12 +3,14 @@
 #include <iostream>
 #include <fstream>
 
+using namespace std;
+
 void out_print(const char name[]) {
-    std::string line;
-    std::ifstream file(name);
+    string line;
+    ifstream file(name);
     getline(file, line);
     file.close();
-    std::cout << line;
+    cout << line;
 }
 
 int main() {
@@ -30,33 +32,33 @@ int main() {
 
     // running
     for (int i = 1; i <= 11; ++i) {
-        if (i < 11) system(std::format("Generator {} > input.txt", i).c_str());
+        if (i < 11) system(format("Generator {} > input.txt", i).c_str());
         else system("Generator > input.txt");
 
-        std::cout << "Test " << i << ":\n";
-        std::ifstream file("input.txt");
-        std::string line;
-        while (std::getline(file, line)) {
-            std::cout << line << "\n";
+        cout << "Test " << i << ":\n";
+        ifstream file("input.txt");
+        string line;
+        while (getline(file, line)) {
+            cout << line << "\n";
         }
         file.close();
 
         system("Array < input.txt > out_array.txt");
-        std::cout << "Array result: ";
+        cout << "Array result: ";
         out_print("out_array.txt");
 
         system("List < input.txt > out_list.txt");
-        std::cout << "\nList result:  ";
+        cout << "\nList result:  ";
         out_print("out_list.txt");
 
         system("Bits < input.txt > out_bits.txt");
-        std::cout << "\nBits result:  ";
+        cout << "\nBits result:  ";
         out_print("out_bits.txt");
 
         system("MWord < input.txt > out_mword.txt");
-        std::cout << "\nMWord result: ";
+        cout << "\nMWord result: ";
         out_print("out_mword.txt");
-        std::cout << "\n\n";
+        cout << "\n\n";
     }
 
     return 0;

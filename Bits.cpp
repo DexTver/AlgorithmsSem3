@@ -7,7 +7,11 @@
     bool loc = false;
 #endif
 
-void scan_set(bool t[10]) {
+using namespace std;
+
+const int U = 10;
+
+void scan_set(bool t[U]) {
     char x;
     do {
         x = (char) getc(stdin);
@@ -18,41 +22,41 @@ void scan_set(bool t[10]) {
 }
 
 int main() {
-    bool a[10]{}, b[10]{}, c[10]{}, d[10]{}, e[10]{};
+    bool a[U]{}, b[U]{}, c[U]{}, d[U]{}, e[U]{};
 
     // scan
-    if (loc) printf("A: ");
+    if (loc) cout << "A: ";
     scan_set(a);
-    if (loc) printf("B: ");
+    if (loc) cout << "B: ";
     scan_set(b);
-    if (loc) printf("C: ");
+    if (loc) cout << "C: ";
     scan_set(c);
-    if (loc) printf("D: ");
+    if (loc) cout << "D: ";
     scan_set(d);
 
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     // e = a & b
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < U; ++i) {
         e[i] = a[i] && b[i];
     }
 
     // e |= c
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < U; ++i) {
         e[i] = e[i] || c[i];
     }
 
     // e |= d
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < U; ++i) {
         e[i] = e[i] || d[i];
     }
-    auto stop = std::chrono::high_resolution_clock::now();
+    auto stop = chrono::high_resolution_clock::now();
 
     // print
-    if (loc) printf("E: ");
-    for (int i = 0; i < 10; ++i) {
-        if (e[i]) printf("%i ", i);
+    if (loc) cout << "E: ";
+    for (int i = 0; i < U; ++i) {
+        if (e[i]) cout << i << " ";
     }
-    printf("in %lli nanoseconds", std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
+    cout << "in " << chrono::duration_cast<chrono::nanoseconds>(stop - start).count() << " nanoseconds";
 
     return 0;
 }
