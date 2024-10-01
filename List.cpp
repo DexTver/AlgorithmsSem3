@@ -28,15 +28,8 @@ void insertNode(Node **head, char data) {
         current = current->next;
     }
     Node *newNode = createNode(data);
-    if (*head == nullptr) {
-        *head = newNode;
-    } else {
-        Node *lastNode = *head;
-        while (lastNode->next != nullptr) {
-            lastNode = lastNode->next;
-        }
-        lastNode->next = newNode;
-    }
+    newNode->next = *head;
+    *head = newNode;
 }
 
 void scanSet(Node **head) {
