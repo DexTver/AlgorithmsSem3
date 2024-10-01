@@ -7,7 +7,11 @@
     bool loc = false;
 #endif
 
-void scan_set(char t[11]) {
+using namespace std;
+
+const int U = 10;
+
+void scan_set(char t[U + 1]) {
     char x;
     int cnt = 0;
     do {
@@ -28,75 +32,67 @@ void scan_set(char t[11]) {
 }
 
 int main() {
-    char a[11]{}, b[11]{}, c[11]{}, d[11]{}, e[11]{};
+    char a[U + 1]{}, b[U + 1]{}, c[U + 1]{}, d[U + 1]{}, e[U + 1]{};
     int cnt_e = 0;
+    bool found;
 
     // scan
-    if (loc) printf("A: ");
+    if (loc) cout << "A: ";
     scan_set(a);
-    if (loc) printf("B: ");
+    if (loc) cout << "B: ";
     scan_set(b);
-    if (loc) printf("C: ");
+    if (loc) cout << "C: ";
     scan_set(c);
-    if (loc) printf("D: ");
+    if (loc) cout << "D: ";
     scan_set(d);
 
-    auto start = std::chrono::high_resolution_clock::now();
-    // removing repetitions
-    for (int i = 0; i < 11; ++i) {
-        for (int j = i + 1; j < 11; ++j) {
-            if (a[i] == a[j]) a[j] = '\000';
-        }
-    }
+    auto start = chrono::high_resolution_clock::now();
 
     // e = a & b
-    for (char i: a) {
-        for (char j: b) {
-            if (i == j && i != '\000') {
-                e[cnt_e++] = i;
+    for (int i = 0; i <= U && a[i] != '\000'; ++i) {
+        for (int j = 0; j <= U && b[i] != '\000'; ++j) {
+            if (a[i] == b[j]) {
+                e[cnt_e++] = a[i];
+                break;
             }
         }
     }
 
     // e |= c
-    for (char i: c) {
-        if (i != '\000') {
-            bool found = false;
-            for (int j = 0; j < cnt_e; ++j) {
-                if (e[j] == i) {
-                    found = true;
-                    break;
-                }
+    for (int i = 0; i <= U && c[i] != '\000'; ++i) {
+        found = false;
+        for (int j = 0; j < cnt_e; ++j) {
+            if (e[j] == c[i]) {
+                found = true;
+                break;
             }
-            if (!found) {
-                e[cnt_e++] = i;
-            }
+        }
+        if (!found) {
+            e[cnt_e++] = c[i];
         }
     }
 
     // e |= d
-    for (char i: d) {
-        if (i != '\000') {
-            bool found = false;
-            for (int j = 0; j < cnt_e; ++j) {
-                if (e[j] == i) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                e[cnt_e++] = i;
+    for (int i = 0; i <= U && d[i] != '\000'; ++i) {
+        found = false;
+        for (int j = 0; j < cnt_e; ++j) {
+            if (e[j] == d[i]) {
+                found = true;
+                break;
             }
         }
+        if (!found) {
+            e[cnt_e++] = d[i];
+        }
     }
-    auto stop = std::chrono::high_resolution_clock::now();
+    auto stop = chrono::high_resolution_clock::now();
 
     // print
-    if (loc) printf("E: ");
+    if (loc) cout << "E: ";
     for (int i = 0; i < cnt_e; ++i) {
-        printf("%c ", e[i]);
+        cout << e[i] << " ";
     }
-    printf("in %lli nanoseconds", std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
+    cout << "in " << chrono::duration_cast<chrono::nanoseconds>(stop - start).count() << " nanoseconds";
 
     return 0;
 }
