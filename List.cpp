@@ -22,12 +22,10 @@ Node *createNode(char data) {
 }
 
 void insertNode(Node **head, char data) {
-    Node *current = *head;
-    while (current != nullptr) {
-        if (current->data == data) {
+    for (Node *cur = *head; cur != nullptr; cur = cur->next) {
+        if (cur->data == data) {
             return; // Node already exists
         }
-        current = current->next;
     }
     Node *newNode = createNode(data);
     newNode->next = *head;
@@ -45,54 +43,32 @@ void scanSet(Node **head) {
 }
 
 void bitwiseAnd(Node *headA, Node *headB, Node **result) {
-    Node *currentA = headA;
-    while (currentA != nullptr) {
-        Node *currentB = headB;
+    for (Node *curA = headA; curA != nullptr; curA = curA->next) {
         bool found = false;
-        while (currentB != nullptr) {
-            if (currentA->data == currentB->data) {
+        for (Node *curB = headB; curB != nullptr; curB = curB->next) {
+            if (curA->data == curB->data) {
                 found = true;
                 break;
             }
-            currentB = currentB->next;
         }
         if (found) {
-            insertNode(result, currentA->data);
+            insertNode(result, curA->data);
         }
-        currentA = currentA->next;
     }
 }
 
-void bitwiseOr(Node *headA, Node *headB, Node **result) {
-    Node *currentA = headA;
-    while (currentA != nullptr) {
-        insertNode(result, currentA->data);
-        currentA = currentA->next;
-    }
-    Node *currentB = headB;
-    while (currentB != nullptr) {
-        bool found = false;
-        Node *currentResult = *result;
-        while (currentResult != nullptr) {
-            if (currentB->data == currentResult->data) {
-                found = true;
-                break;
-            }
-            currentResult = currentResult->next;
-        }
-        if (!found) {
-            insertNode(result, currentB->data);
-        }
-        currentB = currentB->next;
+void bitwiseOr(Node *headA, Node **result) {
+    for (Node *cur = headA; cur != nullptr; cur = cur->next) {
+        insertNode(result, cur->data);
     }
 }
 
 void deleteList(Node **head) {
-    Node *current = *head;
-    while (current != nullptr) {
-        Node *next = current->next;
-        delete current;
-        current = next;
+    Node *cur = *head;
+    while (cur != nullptr) {
+        Node *next = cur->next;
+        delete cur;
+        cur = next;
     }
     *head = nullptr;
 }
@@ -113,18 +89,18 @@ int main() {
     auto start = chrono::high_resolution_clock::now();
     // e = a & b
     bitwiseAnd(headA, headB, &headE);
-    // e = c | e
-    bitwiseOr(headC, headE, &headE);
-    // e = d | e
-    bitwiseOr(headD, headE, &headE);
+    // e |= c
+    bitwiseOr(headC, &headE);
+    // e |= d
+    bitwiseOr(headD, &headE);
     auto stop = chrono::high_resolution_clock::now();
 
     // print
     if (loc) cout << "E: ";
-    Node *current = headE;
-    while (current != nullptr) {
-        cout << current->data << " ";
-        current = current->next;
+    Node *cur = headE;
+    while (cur != nullptr) {
+        cout << cur->data << " ";
+        cur = cur->next;
     }
     cout << "in " << chrono::duration_cast<chrono::nanoseconds>(stop - start).count() << " nanoseconds";
 
