@@ -38,8 +38,9 @@ int main() {
         cout << "Test " << i << ":\n";
         ifstream file("input.txt");
         string line;
+        char sym = 'A';
         while (getline(file, line)) {
-            cout << line << "\n";
+            cout << sym++ << ": " << line << "\n";
         }
         file.close();
 
