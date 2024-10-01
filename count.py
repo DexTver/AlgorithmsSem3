@@ -1,4 +1,4 @@
-with open("logs.txt", "r") as f:
+with open("logs.txt", mode="r", encoding="UTF-8") as f:
     a = [line for line in f]
     s = 0
     for k in range(10):
