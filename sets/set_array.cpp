@@ -69,7 +69,11 @@ set_array &set_array::operator=(const set_array &other) {
 }
 
 void set_array::show() const {
-    std::cout << "[" << A << "]";
+    std::cout << "[";
+    for (int i = 0; i < n - 1; ++i) {
+        std::cout << A[i] << ", ";
+    }
+    std::cout << A[n - 1] << "]";
 }
 
 int set_array::power() const {

@@ -19,7 +19,7 @@ set_machine_word::set_machine_word(const set_machine_word &other) : n(other.n), 
 
 set_machine_word::~set_machine_word() {}
 
-int countSetBits(unsigned short bitMask) {
+int count_set_bits(unsigned short bitMask) {
     int count = 0;
     while (bitMask) {
         count += bitMask & 1;
@@ -31,21 +31,21 @@ int countSetBits(unsigned short bitMask) {
 set_machine_word set_machine_word::operator|(const set_machine_word &other) const {
     set_machine_word result;
     result.bitMask = this->bitMask | other.bitMask;
-    result.n = countSetBits(result.bitMask);
+    result.n = count_set_bits(result.bitMask);
     return result;
 }
 
 set_machine_word set_machine_word::operator&(const set_machine_word &other) const {
     set_machine_word result;
     result.bitMask = this->bitMask & other.bitMask;
-    result.n = countSetBits(result.bitMask);
+    result.n = count_set_bits(result.bitMask);
     return result;
 }
 
 set_machine_word set_machine_word::operator~() const {
     set_machine_word result;
     result.bitMask = ~this->bitMask & ((1 << U) - 1);
-    result.n = countSetBits(result.bitMask);
+    result.n = count_set_bits(result.bitMask);
     return result;
 }
 
